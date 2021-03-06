@@ -1,131 +1,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>inout params</title>
+        <title>Test Site</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="bear-note-unique-identifier" content="F0E8ECD3-CBD9-4C6F-AD05-58BE579B6F3D-17888-00020C02A1F36E6A">
-        <meta name="created" content="2019-05-05T19:40:48+0800"/>
-        <meta name="modified" content="2019-05-05T20:10:08+0800"/>
-        <meta name="tags" content="learn/cs/languages, blogging/cs/swift/quiz, learn, learn/CS, blogging/cs/swift, blogging/cs, learn/cs/languages/swift, blogging"/>
-        <meta name="last device" content="ITSG001854-MAC"/>
+        <meta name="bear-note-unique-identifier" content="BCC15FD7-49B3-45A8-B331-BF84932D24BB-68839-0000B067692E7AAB">
+        <meta name="created" content="2021-03-06T13:22:37+0800"/>
+        <meta name="modified" content="2021-03-06T14:03:56+0800"/>
+        <meta name="tags" content="blogging/site/test, blogging, blogging/site"/>
+        <meta name="last device" content="ITSG002134-MAC (5)"/>
     </head>
     <body>
         <div class="note-wrapper">
-            <h1 id="inout params">inout params</h1>
-<p>In-out parameters are passed as follows:</p>
-<br>
-<ul><li> When the function is called, the value of the argument is copied.
-</li><li> In the body of the function, the copy is modified.
-</li><li> When the function returns, the copy’s value is assigned to the original argument.
-</li></ul>
-<br>
-<p>This behaviour is known as  <code class='code-inline'>copy-in copy-out</code>  or  <code class='code-inline'>call by value</code> result. </p>
-<p>For example, when a computed property or a property with observers is passed as an in-out parameter, its </p>
-<br>
-<ul><li>	<mark>Getter is called as part of the function call</mark> 
-</li><li>	<mark>Its setter is called as part of the function return.</mark>
-</li></ul>
-<p><span class='hashtag'>#blogging/cs/swift/quiz</span></p>
-<br>
-<p><a href="https://docs.swift.org/swift-book/ReferenceManual/Declarations.html#ID545">Declarations — The Swift Programming Language (Swift 5)</a></p>
-<br>
-<br>
-<pre><code class='code-multiline' lang='swift'><span class="sf_code_constant">import</span> <span class="sf_code_builtin">Foundation</span>
-
-<span class="sf_code_comment">// Inout</span>
-
-<span class="sf_code_constant">class</span> <span class="sf_code_class-name">A</span> <span class="sf_code_punctuation">{</span>
-
-  <span class="sf_code_keyword">var</span> asd <span class="sf_code_operator">=</span> <span class="sf_code_number">1</span>
-  <span class="sf_code_keyword">init</span><span class="sf_code_punctuation">()</span> <span class="sf_code_punctuation">{</span>
-    <span class="sf_code_comment">//</span>
-  <span class="sf_code_punctuation">}</span>
-<span class="sf_code_punctuation">}</span>
-
-<span class="sf_code_keyword">struct</span> <span class="sf_code_builtin">InputTest</span> <span class="sf_code_punctuation">{</span>
-
-  <span class="sf_code_keyword">var</span> classStoredProperty<span class="sf_code_punctuation">:</span> A <span class="sf_code_punctuation">{</span>
-    <span class="sf_code_keyword">willSet</span> <span class="sf_code_punctuation">{</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"willSet was Called classStoredProperty"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"classStoredProperty is now equal to </span><span class="sf_code_delimiter">\(</span><span class="sf_code_interpolation">a</span><span class="sf_code_delimiter">)</span><span class="sf_code_string">"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"classStoredProperty will be set to </span><span class="sf_code_delimiter">\(</span><span class="sf_code_interpolation">newValue</span><span class="sf_code_delimiter">)</span><span class="sf_code_string">"</span><span class="sf_code_punctuation">)</span>
-    <span class="sf_code_punctuation">}</span>
-    <span class="sf_code_keyword">didSet</span> <span class="sf_code_punctuation">{</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"didSet was called classStoredProperty"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"classStoredProperty is now equal to </span><span class="sf_code_delimiter">\(</span><span class="sf_code_interpolation">a</span><span class="sf_code_delimiter">)</span><span class="sf_code_string">"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"classStoredProperty was equal to </span><span class="sf_code_delimiter">\(</span><span class="sf_code_interpolation">oldValue</span><span class="sf_code_delimiter">)</span><span class="sf_code_string">"</span><span class="sf_code_punctuation">)</span>
-    <span class="sf_code_punctuation">}</span>
-  <span class="sf_code_punctuation">}</span>
-
-  <span class="sf_code_keyword">var</span> classComputedProperty<span class="sf_code_punctuation">:</span> A <span class="sf_code_punctuation">{</span>
-    <span class="sf_code_keyword">get</span> <span class="sf_code_punctuation">{</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"classStoredProperty get"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_keyword">return</span> <span class="sf_code_function">A</span><span class="sf_code_punctuation">()</span>
-    <span class="sf_code_punctuation">}</span>
-    <span class="sf_code_keyword">set</span> <span class="sf_code_punctuation">{</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"classStoredProperty Set"</span><span class="sf_code_punctuation">)</span>
-    <span class="sf_code_punctuation">}</span>
-  <span class="sf_code_punctuation">}</span>
-
-  <span class="sf_code_keyword">var</span> a<span class="sf_code_punctuation">:</span> <span class="sf_code_builtin">Int</span> <span class="sf_code_punctuation">{</span>
-    <span class="sf_code_keyword">willSet</span> <span class="sf_code_punctuation">{</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"willSet was Called"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"a is now equal to </span><span class="sf_code_delimiter">\(</span><span class="sf_code_interpolation">a</span><span class="sf_code_delimiter">)</span><span class="sf_code_string">"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"a will be set to </span><span class="sf_code_delimiter">\(</span><span class="sf_code_interpolation">newValue</span><span class="sf_code_delimiter">)</span><span class="sf_code_string">"</span><span class="sf_code_punctuation">)</span>
-    <span class="sf_code_punctuation">}</span>
-    <span class="sf_code_keyword">didSet</span> <span class="sf_code_punctuation">{</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"didSet was called"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"a is now equal to </span><span class="sf_code_delimiter">\(</span><span class="sf_code_interpolation">a</span><span class="sf_code_delimiter">)</span><span class="sf_code_string">"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"a was equal to </span><span class="sf_code_delimiter">\(</span><span class="sf_code_interpolation">oldValue</span><span class="sf_code_delimiter">)</span><span class="sf_code_string">"</span><span class="sf_code_punctuation">)</span>
-    <span class="sf_code_punctuation">}</span>
-  <span class="sf_code_punctuation">}</span>
-
-  <span class="sf_code_keyword">var</span> b<span class="sf_code_punctuation">:</span> <span class="sf_code_builtin">Int</span> <span class="sf_code_punctuation">{</span>
-    <span class="sf_code_keyword">get</span> <span class="sf_code_punctuation">{</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"b getter is being called"</span><span class="sf_code_punctuation">)</span>
-      <span class="sf_code_keyword">return</span> <span class="sf_code_number">3</span>
-    <span class="sf_code_punctuation">}</span>
-    <span class="sf_code_keyword">set</span> <span class="sf_code_punctuation">{</span>
-      <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"b is setting to </span><span class="sf_code_delimiter">\(</span><span class="sf_code_interpolation">newValue</span><span class="sf_code_delimiter">)</span><span class="sf_code_string">"</span><span class="sf_code_punctuation">)</span>
-    <span class="sf_code_punctuation">}</span>
-  <span class="sf_code_punctuation">}</span>
-
-  <span class="sf_code_keyword">init</span><span class="sf_code_punctuation">(</span>a<span class="sf_code_punctuation">:</span> <span class="sf_code_builtin">Int</span><span class="sf_code_punctuation">)</span> <span class="sf_code_punctuation">{</span>
-    <span class="sf_code_comment">// Observer doesn't run when u set the property inside initializer.</span>
-    <span class="sf_code_keyword">self</span><span class="sf_code_punctuation">.</span>a <span class="sf_code_operator">=</span> a
-    <span class="sf_code_keyword">self</span><span class="sf_code_punctuation">.</span>classStoredProperty <span class="sf_code_operator">=</span> <span class="sf_code_function">A</span><span class="sf_code_punctuation">()</span>
-  <span class="sf_code_punctuation">}</span>
-
-<span class="sf_code_punctuation">}</span>
-
-<span class="sf_code_keyword">func</span> <span class="sf_code_function">changeStoredPropertyA</span><span class="sf_code_punctuation">(</span>it<span class="sf_code_punctuation">:</span> <span class="sf_code_keyword">inout</span> <span class="sf_code_builtin">Int</span><span class="sf_code_punctuation">)</span> <span class="sf_code_punctuation">{</span>
-  <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"Inside Change Stored Property"</span><span class="sf_code_punctuation">)</span>
-
-
-<span class="sf_code_punctuation">}</span>
-
-<span class="sf_code_keyword">func</span> <span class="sf_code_function">changeC</span><span class="sf_code_punctuation">(</span>subject<span class="sf_code_punctuation">:</span> <span class="sf_code_keyword">inout</span> A<span class="sf_code_punctuation">)</span> <span class="sf_code_punctuation">{</span>
-  <span class="sf_code_function">print</span><span class="sf_code_punctuation">(</span><span class="sf_code_string">"Inside changeC"</span><span class="sf_code_punctuation">)</span>
-  subject<span class="sf_code_punctuation">.</span>asd <span class="sf_code_operator">=</span> <span class="sf_code_number">10</span>
-
-  <span class="sf_code_builtin">DispatchQueue</span><span class="sf_code_punctuation">.</span>main<span class="sf_code_punctuation">.</span>async <span class="sf_code_punctuation">{</span>
-    subject <span class="sf_code_operator">=</span> <span class="sf_code_function">A</span><span class="sf_code_punctuation">()</span>
-    subject<span class="sf_code_punctuation">.</span>asd <span class="sf_code_operator">=</span> <span class="sf_code_number">4</span>
-    <span class="sf_code_comment">//error: MyPlayground.playground:74:5: error: escaping closures can only capture inout parameters explicitly by value</span>
-    subject <span class="sf_code_operator">=</span> <span class="sf_code_function">A</span><span class="sf_code_punctuation">()</span>
-  <span class="sf_code_punctuation">}</span>
-<span class="sf_code_punctuation">}</span>
-
-<span class="sf_code_keyword">var</span> itestInstance <span class="sf_code_operator">=</span> <span class="sf_code_function">InputTest</span><span class="sf_code_punctuation">(</span>a<span class="sf_code_punctuation">:</span> <span class="sf_code_number">9</span><span class="sf_code_punctuation">)</span>
-<span class="sf_code_comment">//itestInstance.a = 10</span>
-
-
-
-<span class="sf_code_comment">//changeStoredPropertyA(it: &itestInstance.a)</span>
-<span class="sf_code_function">changeC</span><span class="sf_code_punctuation">(</span>subject<span class="sf_code_punctuation">:</span> <span class="sf_code_operator">&</span>itestInstance<span class="sf_code_punctuation">.</span>classComputedProperty<span class="sf_code_punctuation">)</span>
-itestInstance<span class="sf_code_punctuation">.</span>classComputedProperty<span class="sf_code_punctuation">.</span>asd
-</code></pre><span class='hashtag'>#learn/CS/languages/swift</span>
+            <h1 id="Test Site">Test Site</h1>
+<p><a href="./About%20me.html"">About me</a></p>
+<p><span class='hashtag'>#blogging/site/test</span></p>
         </div>
         <script type="text/javascript">
             (function() {
